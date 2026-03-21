@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>The Sword Launcher</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --black: #080808;
+      --white: #f5f5f0;
+      --gray: #1a1a1a;
+      --gray2: #2c2c2c;
+      --accent: #ffffff;
+      --muted: #555;
+      --border: rgba(255,255,255,0.08);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--black);
+      color: var(--white);
+      font-family: 'DM Sans', sans-serif;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    /* Custom Cursor */
+    .cursor {
+      position: fixed;
+      width: 12px; height: 12px;
+      background: var(--white);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.2s, height 0.2s, opacity 0.2s;
+      mix-blend-mode: difference;
+    }
+    .cursor-ring {
+      position: fixed;
+      width: 40px; height: 40px;
+      border: 1px solid rgba(255,255,255,0.4);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    }
+    .cursor.active { width: 6px; height: 6px; }
+    .cursor-ring.active { width: 60px; height: 60px; opacity: 0.5; }
+
+    /* Noise overlay */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.6;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.5rem 3rem;
+      border-bottom: 1px solid var(--border);
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(12px);
+    }
+    .nav-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.15em;
+      color: var(--white);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--muted); }
+    .nav-links { display: flex; gap: 2.5rem; list-style: none; }
+    .nav-links a {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.7rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--white); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      padding: 8rem 3rem 4rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-bg-grid {
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+      background-size: 60px 60px;
+      mask-image: radial-gradient(ellipse 80% 70% at 50% 50%, black 30%, transparent 100%);
+    }
+    .hero-glow {
+      position: absolute;
+      width: 600px; height: 600px;
+      background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+    }
+    .hero-left { position: relative; z-index: 2; }
+    .hero-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      display: inline-block;
+      padding: 0.4rem 0.9rem;
+      margin-bottom: 1.5rem;
+      animation: fadeUp 0.8s ease forwards;
+      opacity: 0;
+    }
+    .hero-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(5rem, 9vw, 10rem);
+      line-height: 0.9;
+      letter-spacing: -0.01em;
+      animation: fadeUp 0.8s 0.1s ease forwards;
+      opacity: 0;
+    }
+    .hero-title .outline {
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+      color: transparent;
+    }
+    .hero-sub {
+      font-size: 1rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 420px;
+      margin: 1.5rem 0 2.5rem;
+      animation: fadeUp 0.8s 0.2s ease forwards;
+      opacity: 0;
+    }
+    .hero-buttons {
+      display: flex; gap: 1rem; flex-wrap: wrap;
+      animation: fadeUp 0.8s 0.3s ease forwards;
+      opacity: 0;
+    }
+    .btn-primary {
+      background: var(--white);
+      color: var(--black);
+      padding: 0.9rem 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: none;
+      text-decoration: none;
+      cursor: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(255,255,255,0.15); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--white);
+      padding: 0.9rem 2rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      border: 1px solid var(--border);
+      text-decoration: none;
+      cursor: none;
+      transition: border-color 0.2s, transform 0.2s;
+      display: inline-flex; align-items: center; gap: 0.5rem;
+    }
+    .btn-secondary:hover { border-color: rgba(255,255,255,0.3); transform: translateY(-2px); }
+
+    .hero-right {
+      position: relative; z-index: 2;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .hero-mockup {
+      width: 100%; max-width: 480px;
+      background: var(--gray);
+      border: 1px solid var(--border);
+      border-radius: 2px;
+      overflow: hidden;
+      animation: fadeIn 1s 0.4s ease forwards;
+      opacity: 0;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.6), 0 0 0 1px var(--border);
+    }
+    .mockup-bar {
+      background: var(--gray2);
+      padding: 0.6rem 1rem;
+      display: flex; align-items: center; gap: 0.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+    .mockup-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); }
+    .mockup-dot:nth-child(1) { background: #ff5f57; }
+    .mockup-dot:nth-child(2) { background: #febc2e; }
+    .mockup-dot:nth-child(3) { background: #28c840; }
+    .mockup-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      margin-left: auto;
+      letter-spacing: 0.1em;
+    }
+    .mockup-body { padding: 1.5rem; display: flex; flex-direction: column; gap: 0.8rem; }
+    .mockup-game-row {
+      display: flex; align-items: center; gap: 1rem;
+      padding: 0.8rem;
+      border: 1px solid var(--border);
+      transition: border-color 0.2s;
+    }
+    .mockup-game-row:hover { border-color: rgba(255,255,255,0.2); }
+    .mockup-game-thumb {
+      width: 48px; height: 48px;
+      border-radius: 2px;
+      flex-shrink: 0;
+    }
+    .mockup-game-info { flex: 1; }
+    .mockup-game-name {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--white);
+      margin-bottom: 0.3rem;
+    }
+    .mockup-game-bar {
+      height: 2px;
+      background: var(--gray2);
+      border-radius: 1px;
+      overflow: hidden;
+    }
+    .mockup-game-progress { height: 100%; background: var(--white); }
+    .mockup-game-btn {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      padding: 0.4rem 0.8rem;
+      border: 1px solid var(--border);
+      color: var(--white);
+      background: transparent;
+      cursor: none;
+      white-space: nowrap;
+    }
+
+    /* ─── DOWNLOAD SECTION ─── */
+    #download {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--border);
+      position: relative;
+    }
+    .section-header {
+      display: flex; align-items: baseline; gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+    .section-number {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.15em;
+    }
+    .section-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 5vw, 5rem);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+      margin-left: auto;
+      max-width: 200px;
+    }
+
+    .download-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .download-card {
+      background: var(--black);
+      padding: 2.5rem 2rem;
+      display: flex; flex-direction: column;
+      transition: background 0.2s;
+    }
+    .download-card:hover { background: var(--gray); }
+    .download-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1.2rem;
+    }
+    .download-os {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.4rem;
+    }
+    .download-version {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.12em;
+      margin-bottom: 1.5rem;
+    }
+    .download-size {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      margin-bottom: 1.5rem;
+      margin-top: auto;
+    }
+    .download-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      color: var(--black);
+      padding: 0.75rem 1.25rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      text-decoration: none;
+      cursor: none;
+      transition: opacity 0.2s, transform 0.2s;
+      align-self: flex-start;
+    }
+    .download-btn:hover { opacity: 0.85; transform: translateX(4px); }
+    .download-btn.outline {
+      background: transparent;
+      color: var(--white);
+      border: 1px solid var(--border);
+    }
+    .download-btn.outline:hover { border-color: rgba(255,255,255,0.3); }
+
+    /* ─── GAMES SECTION ─── */
+    #games {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+    }
+    .game-card {
+      background: var(--black);
+      overflow: hidden;
+      position: relative;
+      group: true;
+      transition: background 0.3s;
+    }
+    .game-card:hover { background: var(--gray); }
+    .game-thumb {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      display: block;
+      filter: grayscale(40%);
+      transition: filter 0.3s;
+    }
+    .game-card:hover .game-thumb { filter: grayscale(0%); }
+    .game-thumb-placeholder {
+      width: 100%;
+      aspect-ratio: 16/9;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 3rem;
+    }
+    .game-info { padding: 1.5rem; }
+    .game-tag {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+    .game-name {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .game-desc {
+      font-size: 0.8rem;
+      color: var(--muted);
+      line-height: 1.6;
+      margin-bottom: 1.2rem;
+    }
+    .game-badges { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 1.2rem; }
+    .badge {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.1em;
+      padding: 0.25rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+    .game-footer {
+      display: flex; align-items: center; justify-content: space-between;
+    }
+    .game-version {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+    }
+    .game-link {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      letter-spacing: 0.1em;
+      color: var(--white);
+      text-decoration: none;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1px;
+      transition: border-color 0.2s;
+      cursor: none;
+    }
+    .game-link:hover { border-color: var(--white); }
+    .game-status {
+      position: absolute;
+      top: 1rem; right: 1rem;
+      font-family: 'Space Mono', monospace;
+      font-size: 0.5rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 0.3rem 0.7rem;
+      background: rgba(8,8,8,0.9);
+      border: 1px solid var(--border);
+    }
+    .status-new { color: #a8ff78; border-color: rgba(168,255,120,0.3); }
+    .status-soon { color: var(--muted); }
+
+    /* ─── NEWS SECTION ─── */
+    #news {
+      padding: 6rem 3rem;
+      border-top: 1px solid var(--border);
+    }
+    .news-list { display: flex; flex-direction: column; }
+    .news-item {
+      display: grid;
+      grid-template-columns: 140px 1fr auto;
+      gap: 3rem;
+      align-items: start;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--border);
+      transition: padding-left 0.2s;
+    }
+    .news-item:hover { padding-left: 0.5rem; }
+    .news-date {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.65rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+      padding-top: 0.2rem;
+    }
+    .news-content {}
+    .news-category {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.55rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    .news-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.5rem;
+    }
+    .news-excerpt {
+      font-size: 0.82rem;
+      color: var(--muted);
+      line-height: 1.6;
+      max-width: 500px;
+    }
+    .news-arrow {
+      font-size: 1.2rem;
+      color: var(--muted);
+      transition: transform 0.2s, color 0.2s;
+    }
+    .news-item:hover .news-arrow { transform: translate(4px, -4px); color: var(--white); }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding: 3rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+    .footer-logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem;
+      letter-spacing: 0.15em;
+      color: var(--muted);
+    }
+    .footer-copy {
+      font-family: 'Space Mono', monospace;
+      font-size: 0.6rem;
+      color: var(--muted);
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── SCROLLBAR ─── */
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--gray2); }
+
+    /* ─── ANIMATIONS ─── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 860px) {
+      nav { padding: 1.2rem 1.5rem; }
+      #hero { grid-template-columns: 1fr; padding: 7rem 1.5rem 4rem; gap: 3rem; }
+      .hero-right { display: none; }
+      #download, #games, #news { padding: 4rem 1.5rem; }
+      footer { padding: 2rem 1.5rem; }
+      .news-item { grid-template-columns: 1fr; gap: 0.5rem; }
+      .news-arrow { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Custom Cursor -->
+  <div class="cursor" id="cursor"></div>
+  <div class="cursor-ring" id="cursorRing"></div>
+
+  <!-- Nav -->
+  <nav>
+    <a class="nav-logo" href="#">THE SWORD<span> LAUNCHER</span></a>
+    <ul class="nav-links">
+      <li><a href="#download">Descargar</a></li>
+      <li><a href="#games">Juegos</a></li>
+      <li><a href="#news">Noticias</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow"></div>
+
+    <div class="hero-left">
+      <div class="hero-tag">// Launcher v1.0 — Ya disponible</div>
+      <h1 class="hero-title">
+        TODOS<br>
+        TUS<br>
+        <span class="outline">JUEGOS</span>
+      </h1>
+      <p class="hero-sub">
+        Un solo lugar para descargar, actualizar y jugar todos los títulos del estudio.
+        Sin complicaciones, sin intermediarios.
+      </p>
+      <div class="hero-buttons">
+        <a href="#download" class="btn-primary">
+          ↓ Descargar Launcher
+        </a>
+        <a href="#games" class="btn-secondary">
+          Ver Juegos →
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-right">
+      <div class="hero-mockup">
+        <div class="mockup-bar">
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <div class="mockup-dot"></div>
+          <span class="mockup-title">THE SWORD LAUNCHER</span>
+        </div>
+        <div class="mockup-body">
+          <div class="mockup-game-row">
+            <div class="mockup-game-thumb" style="background: linear-gradient(135deg, #1a1a2e, #16213e); display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🗡️</div>
+            <div class="mockup-game-info">
+              <div class="mockup-game-name">SHADOW RIFT</div>
+              <div class="mockup-game-bar"><div class="mockup-game-progress" style="width:100%"></div></div>
+            </div>
+            <button class="mockup-game-btn">JUGAR</button>
+          </div>
+          <div class="mockup-game-row">
+            <div class="mockup-game-thumb" style="background: linear-gradient(135deg, #0f3460, #533483); display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🚀</div>
+            <div class="mockup-game-info">
+              <div class="mockup-game-name">VOID RUNNER</div>
+              <div class="mockup-game-bar"><div class="mockup-game-progress" style="width:65%"></div></div>
+            </div>
+            <button class="mockup-game-btn">65%</button>
+          </div>
+          <div class="mockup-game-row">
+            <div class="mockup-game-thumb" style="background: linear-gradient(135deg, #1b1b2f, #2c2c54); display:flex;align-items:center;justify-content:center;font-size:1.4rem;">🌿</div>
+            <div class="mockup-game-info">
+              <div class="mockup-game-name">VERDANT ECHO</div>
+              <div class="mockup-game-bar"><div class="mockup-game-progress" style="width:0%"></div></div>
+            </div>
+            <button class="mockup-game-btn">PRÓXIMO</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Download -->
+  <section id="download">
+    <div class="section-header">
+      <span class="section-number">01</span>
+      <h2 class="section-title">DESCARGA</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="download-grid">
+      <div class="download-card">
+        <div class="download-icon">🪟</div>
+        <div class="download-os">Windows</div>
+        <div class="download-version">// v1.0.0 — Estable</div>
+        <div class="download-size">↳ ~85 MB · .exe installer</div>
+        <!-- Reemplaza href con tu link real de GitHub Releases -->
+        <a href="#" class="download-btn">↓ Descargar .exe</a>
+      </div>
+      <div class="download-card">
+        <div class="download-icon">🐧</div>
+        <div class="download-os">Linux</div>
+        <div class="download-version">// v1.0.0 — Estable</div>
+        <div class="download-size">↳ ~80 MB · .AppImage</div>
+        <a href="#" class="download-btn">↓ Descargar .AppImage</a>
+      </div>
+      <div class="download-card">
+        <div class="download-icon">🍎</div>
+        <div class="download-os">macOS</div>
+        <div class="download-version">// v1.0.0 — Beta</div>
+        <div class="download-size">↳ ~90 MB · .dmg</div>
+        <a href="#" class="download-btn outline">↓ Descargar .dmg</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Games -->
+  <section id="games">
+    <div class="section-header">
+      <span class="section-number">02</span>
+      <h2 class="section-title">JUEGOS</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="games-grid">
+
+      <div class="game-card">
+        <div class="game-thumb-placeholder" style="background: linear-gradient(135deg, #0d0d0d, #1a1a2e);">🗡️</div>
+        <span class="game-status status-new">● Nuevo</span>
+        <div class="game-info">
+          <div class="game-tag">// Acción · RPG</div>
+          <div class="game-name">SHADOW RIFT</div>
+          <div class="game-desc">Explora mazmorras generadas proceduralmente y enfréntate a enemigos que aprenden de tus movimientos.</div>
+          <div class="game-badges">
+            <span class="badge">Windows</span>
+            <span class="badge">Linux</span>
+            <span class="badge">1 Jugador</span>
+          </div>
+          <div class="game-footer">
+            <span class="game-version">v1.2.0</span>
+            <a href="#" class="game-link">Ver más →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-thumb-placeholder" style="background: linear-gradient(135deg, #0f0f1a, #0f3460);">🚀</div>
+        <span class="game-status status-soon">Próximamente</span>
+        <div class="game-info">
+          <div class="game-tag">// Arcade · Sci-fi</div>
+          <div class="game-name">VOID RUNNER</div>
+          <div class="game-desc">Sobrevive oleadas infinitas en el vacío del espacio. Velocidad, precisión y reflejos son tu única esperanza.</div>
+          <div class="game-badges">
+            <span class="badge">Windows</span>
+            <span class="badge">Multijugador</span>
+          </div>
+          <div class="game-footer">
+            <span class="game-version">v0.8.0 Beta</span>
+            <a href="#" class="game-link">Ver más →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="game-card">
+        <div class="game-thumb-placeholder" style="background: linear-gradient(135deg, #0a1a0a, #1b2f1b);">🌿</div>
+        <span class="game-status status-soon">En desarrollo</span>
+        <div class="game-info">
+          <div class="game-tag">// Exploración · Puzzle</div>
+          <div class="game-name">VERDANT ECHO</div>
+          <div class="game-desc">Un mundo orgánico lleno de secretos. Resuelve los misterios de una civilización perdida entre la naturaleza.</div>
+          <div class="game-badges">
+            <span class="badge">TBA</span>
+            <span class="badge">1 Jugador</span>
+          </div>
+          <div class="game-footer">
+            <span class="game-version">Anuncio 2025</span>
+            <a href="#" class="game-link">Wishlist →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- News -->
+  <section id="news">
+    <div class="section-header">
+      <span class="section-number">03</span>
+      <h2 class="section-title">NOTICIAS</h2>
+      <div class="section-line"></div>
+    </div>
+    <div class="news-list">
+
+      <div class="news-item">
+        <div class="news-date">12 MAR 2025</div>
+        <div class="news-content">
+          <div class="news-category">// Lanzamiento</div>
+          <div class="news-title">THE SWORD LAUNCHER V1.0 YA DISPONIBLE</div>
+          <div class="news-excerpt">The Sword Launcher ya está disponible para Windows y Linux. Descarga tus juegos favoritos con actualizaciones automáticas y una experiencia sin fricciones.</div>
+        </div>
+        <div class="news-arrow">↗</div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-date">28 FEB 2025</div>
+        <div class="news-content">
+          <div class="news-category">// Actualización</div>
+          <div class="news-title">SHADOW RIFT 1.2 — NUEVO DUNGEON</div>
+          <div class="news-excerpt">La actualización más grande del juego agrega una nueva mazmorra con 3 jefes únicos, sistema de crafteo mejorado y correcciones de rendimiento.</div>
+        </div>
+        <div class="news-arrow">↗</div>
+      </div>
+
+      <div class="news-item">
+        <div class="news-date">10 FEB 2025</div>
+        <div class="news-content">
+          <div class="news-category">// Anuncio</div>
+          <div class="news-title">VOID RUNNER ENTRA EN BETA ABIERTA</div>
+          <div class="news-excerpt">Todos los jugadores pueden ya acceder a la beta de Void Runner desde el launcher. Tu feedback es clave para el desarrollo del juego final.</div>
+        </div>
+        <div class="news-arrow">↗</div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="footer-logo">THE SWORD LAUNCHER</div>
+    <div class="footer-copy">© 2025 The Sword Launcher — Todos los derechos reservados</div>
+  </footer>
+
+  <script>
+    // Cursor
+    const cursor = document.getElementById('cursor');
+    const ring = document.getElementById('cursorRing');
+    let mx = 0, my = 0, rx = 0, ry = 0;
+
+    document.addEventListener('mousemove', e => {
+      mx = e.clientX; my = e.clientY;
+      cursor.style.left = mx + 'px';
+      cursor.style.top = my + 'px';
+    });
+
+    function animRing() {
+      rx += (mx - rx) * 0.12;
+      ry += (my - ry) * 0.12;
+      ring.style.left = rx + 'px';
+      ring.style.top = ry + 'px';
+      requestAnimationFrame(animRing);
+    }
+    animRing();
+
+    document.querySelectorAll('a, button').forEach(el => {
+      el.addEventListener('mouseenter', () => { cursor.classList.add('active'); ring.classList.add('active'); });
+      el.addEventListener('mouseleave', () => { cursor.classList.remove('active'); ring.classList.remove('active'); });
+    });
+
+    // Scroll reveal
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.style.opacity = '1';
+          e.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.download-card, .game-card, .news-item').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(20px)';
+      el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+      observer.observe(el);
+    });
+  </script>
+</body>
+</html>
