@@ -6,5 +6,5 @@
   "content": "Hola :D, ya he recivido cierta recepcion despues de compartir el launcher y la pagina web, estos son todos los cambios hechos en el launcher: -se va arreglado el laber con las versiones entrecortado -se ha puesto la url del roadmap correcta -Ahora el luancher puede ejecutar juegos que no estan en las carpetas en donde se descaron. Ahora, la pagina web ha recibido ciertos cambios: -se ha cambiado de video de youtube a un video dentro de la pagina - se ha añadido esta nueva seccion de noticias -se ha actualizado el roadmap para que tenga mas espacio para modificarlo. yyyy eso serian todos los cambios",
   "version": "1.0.1",
   "image": "https://url-de-una-imagen.png",
-  "game": "The Sword Launcher",
+  "game": "The Sword Launcher"
 }
