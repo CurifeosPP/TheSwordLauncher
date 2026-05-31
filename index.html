@@ -39,7 +39,11 @@
 
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  html { scroll-behavior: smooth; }
+  /* Fluid base font: escala de 13px (320px) a 16px (1200px+) */
+  html {
+    scroll-behavior: smooth;
+    font-size: clamp(13px, 1.1vw + 9.5px, 16px);
+  }
 
   body {
     background: var(--ps1-black);
@@ -2924,6 +2928,7 @@
   .nav-hamburger.open span:nth-child(2) { opacity: 0; }
   .nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
 
+  /* ========== MOBILE: hamburger threshold ========== */
   @media (max-width: 700px) {
     .nav-fill { display: none; }
     .nav-hamburger { display: flex; }
@@ -2949,24 +2954,177 @@
       border-bottom: 1px solid #1a1a1a;
       font-size: 0.7rem;
     }
-    /* Hero adjustments */
-    .hero-video-section { min-height: 280px; }
-    .hero-video-overlay { padding: 1rem; }
-    /* Section padding */
-    .page-section { padding: 86px 1rem 60px; }
-    #home { padding: 72px 0.75rem 40px; }
-    /* Home grid already collapses to 1 col at 600px */
-    /* Download layout */
-    .dl-layout { grid-template-columns: 1fr !important; }
-    .dl-platforms { grid-template-columns: repeat(2, 1fr); }
-    /* Support */
-    .support-layout { flex-direction: column; }
+  }
+
+  /* ========== MOBILE: all sections ========== */
+  @media (max-width: 700px) {
+
+    /* --- GENERAL --- */
+    .page-section { padding: 86px 0.85rem 60px; }
+    #home { padding: 72px 0.75rem 60px; }
+    .status-bar { font-size: 0.75rem; gap: 0.5rem; padding: 3px 0.75rem; }
+
+    /* --- HERO VIDEO --- */
+    .hero-video-section { min-height: unset; }
+    .hero-video-overlay { padding: 0.75rem; gap: 0.5rem; }
+    .hero-logo-img { width: clamp(72px, 22vw, 130px); }
+    .hero-tagline { font-size: clamp(0.2rem, 0.7vw, 0.32rem); letter-spacing: 1px; }
+    .hero-video-overlay .download-btn { padding: 8px 14px; font-size: clamp(0.32rem, 1vw, 0.43rem); }
+
+    /* --- HOME CONTENT --- */
+    .home-content { margin: 0.5rem 0; }
+    .feature-quickbar { gap: 4px; padding: 8px; flex-wrap: wrap; }
+    .fq-chip { font-size: 0.42rem; padding: 6px 10px; }
+    .hf-block { grid-template-columns: 1fr; gap: 1rem; margin: 1.25rem 0; }
+    .hf-block:nth-child(even) .hf-block-img { order: 0; }
+    .hf-block-img { aspect-ratio: 16/9; }
+
+    /* --- NOTICIAS --- */
+    .news-header-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 10px 14px;
+      gap: 0.5rem;
+    }
+    .news-header-title { font-size: clamp(0.52rem, 3.2vw, 0.72rem); }
+    .news-header-meta { font-size: 1rem; letter-spacing: 1px; }
+    .news-refresh-btn { width: 100%; padding: 8px 12px; font-size: 0.5rem; text-align: center; }
+    .news-filters { gap: 0.35rem; }
+    .news-fchip { font-size: 0.42rem; padding: 7px 10px; }
+    .news-grid { gap: 1rem; }
+    .news-card-title { font-size: clamp(0.52rem, 3.2vw, 0.68rem); }
+    .news-card-desc { font-size: 1.05rem; }
+    .news-card-header { padding: 10px 14px 8px; }
+    .news-card-body { padding: 14px; }
+    .news-card-footer { padding: 8px 14px; }
+    .news-modal { padding: 0.5rem; }
+    .news-modal-box { max-height: 90vh; }
+    .news-modal-top { padding: 12px 14px; gap: 0.75rem; }
+    .news-modal-title { font-size: clamp(0.5rem, 3vw, 0.7rem); }
+    .news-modal-body { padding: 14px; }
+    .news-modal-content { font-size: 1.15rem; }
+
+    /* --- ROADMAP --- */
+    .rm-semester-bar { padding: 8px 12px; gap: 0.4rem; }
+    .rm-semester-title { font-size: 0.48rem; }
+    .rm-semester-meta { font-size: 0.9rem; }
+    .rm-semester-badge { font-size: 0.38rem; }
+    /* Timeline: scrollable horizontally */
+    .rm-timeline-wrap { overflow-x: auto; }
+    .rm-months-row { min-width: 480px; }
+    .rm-track { min-width: 480px; }
+    .rm-milestones-grid { grid-template-columns: 1fr 1fr !important; }
+    .rm-ms-cell { padding: 10px; }
+    .rm-ms-tag { font-size: 0.38rem; padding: 4px 7px; }
+    .rm-ms-label { font-size: clamp(0.38rem, 1vw, 0.55rem); }
+    .rm-ms-sub { font-size: 1rem; }
+    .rm-legend { gap: 0.75rem; padding: 8px 12px; }
+    /* FAQ on roadmap */
+    .faq-section { margin: 1.25rem 0; }
+    .faq-q { font-size: 0.8rem; padding: 10px 14px; }
+
+    /* --- DESCARGAS --- */
+    .dl-layout { grid-template-columns: 1fr !important; gap: 1.5rem; }
+    .download-grid { grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+    .dl-platform { padding: 1rem 0.75rem; }
+    .dl-name { font-size: 0.45rem; }
+    .dl-confirm-btn { font-size: 0.5rem; padding: 10px 18px; }
+    .dl-faq-wrap { padding: 0 0 2rem; }
+    .dl-faq-q { font-size: clamp(0.33rem, 1vw, 0.45rem); padding: 12px 14px; }
+    .dl-faq-a { padding: 12px 16px 12px 32px; font-size: 0.95rem; }
+    .dl-modal { padding: 1.5rem 1.25rem 1.25rem; }
+    .dl-modal-title { font-size: clamp(0.5rem, 1.6vw, 0.75rem); }
+    .dl-modal-sub { font-size: 1.1rem; }
+    .dl-terms-wrap { max-height: 160px; padding: 12px 14px; }
+    .dl-terms-body { font-size: 1rem; }
+
+    /* --- SOPORTE --- */
+    .support-layout { grid-template-columns: 1fr !important; gap: 1rem; }
     .support-sidebar { width: 100%; }
+    .support-sidebar-card { padding: 1rem; }
+    .sidebar-card-title { font-size: 0.42rem; }
+    .bug-counters-enhanced { grid-template-columns: 1fr 1fr; gap: 0.6rem; }
+    .counter-card-num { font-size: 2.2rem; }
+    .counter-card-label { font-size: 0.48rem; letter-spacing: 1px; }
+    .bug-counter-card { padding: 1.25rem 0.75rem 1rem; }
+    /* Pipeline: scrollable */
+    .pipeline-wrap { overflow-x: hidden; }
+    .pipeline-track {
+      grid-template-columns: repeat(4, minmax(90px, 1fr));
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+    .pipeline-node { padding: 1rem 0.6rem 0.9rem; min-height: 110px; }
+    .pipeline-node-label { font-size: 0.38rem; }
+    .pipeline-node-sub { font-size: 0.85rem; max-width: 90px; }
+    .pipeline-arrow { height: 110px; }
+    /* Bug items */
+    .bug-item { grid-template-columns: 1fr auto; gap: 0.75rem; padding: 1rem 1rem; }
+    .bug-id { display: none; }
+    .bug-title { font-size: 0.95rem; }
+    .bug-desc { font-size: 1rem; }
+    /* Filter sidebar */
+    .filter-chip-group { gap: 0.4rem; }
+    .fchip { font-size: 0.32rem; padding: 6px 9px; }
+    .discord-link-pill { padding: 10px 12px; gap: 0.5rem; }
+    .step-text { font-size: 0.9rem; }
+    /* Discord panel */
+    .discord-panel { padding: 1rem; }
+
+    /* --- CURIFEOSPP --- */
+    .cpp-origin-box { padding: 1.25rem 1.25rem; }
+    .cpp-origin-text { font-size: 1rem; }
+    .cpp-kofi-section { padding: 1.25rem; }
+    .cpp-kofi-desc { font-size: 1rem; }
+    .cpp-kofi-btn { padding: 10px 18px; font-size: clamp(0.33rem, 1.1vw, 0.45rem); }
+    .cpp-knights-section { padding: 1.25rem; }
+    .cpp-knights-desc { font-size: 1rem; }
+    .cpp-member-card { padding: 1.25rem 1rem; }
+    .cpp-member-desc { font-size: 0.95rem; }
+    .cpp-info-card { padding: 1rem; }
+    .cpp-info-list li { font-size: 0.95rem; }
+    .cpp-contacts { padding: 1rem; }
+    .cpp-contact-links { gap: 0.5rem; }
+    .cpp-contact-link { font-size: 0.38rem; padding: 7px 10px; }
+    .cpp-footer-tag p { font-size: 0.85rem; }
+
+    /* --- PANEL TITLE --- */
+    .panel-title { font-size: clamp(0.38rem, 1.6vw, 0.6rem); padding: 6px 10px; }
+
+    /* --- SECTION TITLE --- */
+    .section-title { font-size: clamp(0.42rem, 1.6vw, 0.65rem); }
+  }
+
+  /* ========== EXTRA SMALL (under 420px) ========== */
+  @media (max-width: 420px) {
+    .page-section { padding: 86px 0.65rem 60px; }
+    #home { padding: 72px 0.65rem 60px; }
+
+    /* Hero */
+    .hero-logo-img { width: clamp(60px, 18vw, 100px); }
+    .hero-video-overlay .download-btn { font-size: 0.3rem; padding: 7px 11px; }
+
+    /* Noticias */
+    .news-header-title { font-size: 0.48rem; }
+    .news-fchip { font-size: 0.36rem; padding: 6px 8px; }
+    .news-card-title { font-size: 0.5rem; }
+
     /* Roadmap */
-    .rm-timeline { padding-left: 1rem; }
-    /* CurifeosPP */
-    .cpp-members-grid { grid-template-columns: 1fr !important; }
-    .cpp-info-row { grid-template-columns: 1fr !important; }
+    .rm-milestones-grid { grid-template-columns: 1fr !important; }
+    .rm-semester-title { font-size: 0.42rem; }
+
+    /* Soporte */
+    .bug-counters-enhanced { grid-template-columns: 1fr; }
+    .counter-card-num { font-size: 2rem; }
+    .pipeline-node { min-height: 95px; }
+    .pipeline-node-sub { font-size: 0.75rem; }
+
+    /* Descargas */
+    .download-grid { grid-template-columns: 1fr; }
+    .dl-modal { padding: 1.25rem 1rem; }
+
+    /* Feature quickbar */
+    .fq-chip { font-size: 0.38rem; padding: 5px 8px; }
   }
 
 </style>
@@ -3420,6 +3578,14 @@
   }
   .cpp-kofi-btn:active { transform: translate(2px,2px); box-shadow: 1px 1px 0 #cc3344; }
   .cpp-kofi-btn::before { content: "APOYAR "; }
+  .cpp-kofi-btn--disabled {
+    cursor: not-allowed;
+    opacity: 0.35;
+    filter: grayscale(60%);
+    pointer-events: none;
+    box-shadow: none;
+  }
+  .cpp-kofi-btn--disabled::after { content: " [PRÓXIMAMENTE]"; font-size: 0.8em; opacity: 0.7; }
 
   /* CABALLEROS SUPREMOS */
   .cpp-knights-section {
@@ -3758,7 +3924,7 @@
         <div class="cpp-kofi-benefit-text"><span data-editable="255">Tu nombre aparecera aquí en CurifeosPP y al final de cada video de Theproknight como reconocimiento eterno por apoyarme.</span></div>
       </div>
     </div>
-    <a href="https://ko-fi.com/summary/cc71df83-f960-4f9f-92c2-402f18da183c" target="_blank" class="cpp-kofi-btn">SUSCRIBIRSE EN KO-FI</a>
+    <span class="cpp-kofi-btn cpp-kofi-btn--disabled" aria-disabled="true" title="Próximamente">SUSCRIBIRSE EN KO-FI</span>
   </div>
 
   <!-- CABALLEROS SUPREMOS -->
