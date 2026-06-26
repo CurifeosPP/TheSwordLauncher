@@ -1,0 +1,10 @@
+{
+  "title": "Panel de control creado para facilitarme la vida",
+  "date": "2026-06-26",
+  "tag": "news",
+  "summary": "Un herramienta que me hara no volver a tocar codigo para manejar mis cosas",
+  "content": "Hola :D, he estado muy ocupado arreglando ciertas cosas en mi launcher, ademas de crear isntaladores, hice un panel de control para manejar mis cosas de una manera mas comoda y sencilla aqui van todas las funciones que tiene este panel\n-Puedo manejar los bugs compartidos por la comunidad, editarlos, publicarlos, etc\n-Editar la pagina web para que pueda actualizarla sin aprender HTML\n-Gestionar mis juegos, subir actualizaciones nuevas, nuevos juegos y borrar juegos (en caso de algun prototipo malga sal...)\n-Gestionar los archivos del launcher para cada juego\n-ROADMAP, esto es lo nuevo que añadi, ahora yo puedo modificar el roadmap para que sea mas especifico a la hora de poner que estoy haciendo\n-Noticias, aqui puedo ver las noticias publicadas y hacer nuevas noticias (que porcierto estoy probando ahora si funciona XDDD)\n-Y por ultimo el launcher, en donde puedo actualizarlo de una forma mas sencilla\n\nDicho todo eso, les informo que no le pasare A NADIE esta herramienta que tengo, es solo para que no tenga que lidiar con recordarme de ids,Escribir jsons en github, etc, se supone y despues de esto deberia de ya enfocarme en HACER JUEGOS Y NO LAUNCHERES, por dios, que paja tremenda es hacer todo este sistema enredado... ",
+  "version": "1.0",
+  "game": "Cortrol Panel",
+  "image": "https://raw.githubusercontent.com/CurifeosPP/TheSwordLauncher/main/noticias/CP__Panel_de_Control_/imagen.png"
+}
