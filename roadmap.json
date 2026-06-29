@@ -48,12 +48,12 @@
       "id": "#005",
       "title": "Arreglar Bugs con las imagenes",
       "desc": "si... Quite los placeholders, pero no estan en resoluciones buenas y entendibles para un usuario viendo esta pagina, asi que, tengo que arreglar las imagenes para que esten mejor",
-      "status": "planned",
+      "status": "done",
       "deadline_type": "weekly",
       "deadline_date": "",
       "week_label": "23-29 junio 26",
       "created_at": "2026-06-26",
-      "updated_at": "2026-06-26"
+      "updated_at": "2026-06-29"
     }
   ]
 }
