@@ -1,17 +1,6 @@
 {
   "items": [
     {
-      "id": "#006",
-      "title": "Sincornizar las versiones del launcher",
-      "desc": "Antes en la pagina web, los textos que indicaban las versiones, pues eran solo texto, por lo que tenia que cambiarlo para cada actualizacion que hiciera, y la verdad, que puta paja XDDDD, asi que simplemente decidi hacer un sistema que revise cada 1 hora la version del launcher (el nombre del release con los ejecutables)",
-      "status": "done",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "23-29 junio 26",
-      "created_at": "2026-06-29",
-      "updated_at": "2026-06-29"
-    },
-    {
       "id": "#007",
       "title": "Subir la nueva version del launcher (1.0.2)",
       "desc": "Ahora mismo, ya le he hecho algunos cambios, por ejemplo, tiene las noticias unificadas, la pantalla de carga funcional, El codigo dividido en varias partes, arreglos para la version de mac, acceso directos en los menus de los sistemas operativos,autoactualizar el launcher cada que sale una nueva version, y todo eso se supone y deberia de andar funcionando correctamente, y se subira esta version con la nueva herramienta del panel de control, por lo que estaria probando dos cosas en una sola vez.",
