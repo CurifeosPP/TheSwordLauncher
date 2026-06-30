@@ -1,0 +1,9 @@
+{
+  "title": "Nueva version del TheswordLauncher (1.0.2)",
+  "date": "2026-06-30",
+  "tag": "update",
+  "summary": "Aqui se dan detalles de todo lo nuevo que incluye esta version",
+  "content": "Hola :D, Este mes ha sido INTEEENSO!, y aqui hay unos cambios que se le ha hecho al todo el ecosistema del launcher\nLAUNCHER:\n-se ha unificado las noticias del launcher con las de la pagina web, asi no ando haciendo dos noticias para cada cosa\n-Ahora la version de MacOS puede iniciar los juegos descargados\n-Ahora el codigo ha pasado de ser un \"god Object\" de 10.200 lineas de codigo, a unas 800 lineas con miles de scripts\n-Se ha arreglado un bug que no mostraba los logros de \"Kore-killer\", SE SOPONE y ahora deberian de verse\n-Ahora hay un apartado de noticias en los ajustes\n-Creo y ahora si intentas buscar un juego manualmente, Te deberia dejar seleccionarlo\n\nKORE-KILLER\n-Se le ha añadido el script para contar el tiempo jugado, olvide agregarlo...\n-ahora el id del juego es Kore-killer, para evitar errores a la hora de escribirlo de otra forma (Como Kore-Killer, Korekiller,KoreKiller o korekiller)",
+  "version": "1.0.2",
+  "game": "TheSwordLauncher"
+}
