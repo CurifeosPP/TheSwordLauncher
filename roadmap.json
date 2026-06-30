@@ -1,17 +1,6 @@
 {
   "items": [
     {
-      "id": "#008",
-      "title": "Arreglar la version de MacOS",
-      "desc": "Antes, si descargabas la version de MacOS, iniciaba el launcher, todo correcto, pero los juegos no iniciaban, derrotando todo el proposito del launcher XDDD, lo que pasaba es que el launcher renombraba el zip con el juego a la version que era, y como los de apple manejan sus apps con carpetas con un .app al final, pues eso rompia el ejecutable de los juegos cada que se instalaban, y era asi.... hasta ahora!",
-      "status": "done",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "23-29 junio 26",
-      "created_at": "2026-06-30",
-      "updated_at": "2026-06-30"
-    },
-    {
       "id": "#009",
       "title": "Testear nueva funcion del launcher",
       "desc": "En esta 1.0.2, inclui una funcion que deberia de facilitarme las cosas, autoactualziar el launcher sin necesidad de usar el instalador, Falta por testearlo y arreglarle un par de errores",
