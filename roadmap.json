@@ -92,7 +92,7 @@
       "id": "#009",
       "title": "Testear nueva funcion del launcher",
       "desc": "En esta 1.0.2, inclui una funcion que deberia de facilitarme las cosas, autoactualziar el launcher sin necesidad de usar el instalador, Falta por testearlo y arreglarle un par de errores",
-      "status": "wip",
+      "status": "done",
       "deadline_type": "weekly",
       "deadline_date": "",
       "week_label": "23-29 junio 26",
