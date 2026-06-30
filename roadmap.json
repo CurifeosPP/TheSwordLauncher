@@ -1,17 +1,6 @@
 {
   "items": [
     {
-      "id": "#003",
-      "title": "Quitar los paceholders de la web",
-      "desc": "Digamos que desde que saque el launcher junto con la pagina web, tenia pensado publicar el launcher aun mas trabajado, pero al final decidi publicarlo tal y con los placeholders, 2 meses despues, termine agregando imagenes mas decentes",
-      "status": "done",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "23-29 junio 26",
-      "created_at": "2026-06-26",
-      "updated_at": "2026-06-26"
-    },
-    {
       "id": "#004",
       "title": "Subir instaladores para el launcher",
       "desc": "El launcher, cuando lo descargas de aqui, solo se descarga el ejecutable, es portable, pero no te da acceso al launcher desde algun menu de apps de cualquer sistema operativo, o crear accesos directos al launcher, por eso, hice unos instaladores para Windows, Linux y mac para que sea mas facil y mejor instalar el launcher",
