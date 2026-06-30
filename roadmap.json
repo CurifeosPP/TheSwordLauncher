@@ -1,17 +1,6 @@
 {
   "items": [
     {
-      "id": "#005",
-      "title": "Arreglar Bugs con las imagenes",
-      "desc": "si... Quite los placeholders, pero no estan en resoluciones buenas y entendibles para un usuario viendo esta pagina, asi que, tengo que arreglar las imagenes para que esten mejor",
-      "status": "done",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "23-29 junio 26",
-      "created_at": "2026-06-26",
-      "updated_at": "2026-06-29"
-    },
-    {
       "id": "#006",
       "title": "Sincornizar las versiones del launcher",
       "desc": "Antes en la pagina web, los textos que indicaban las versiones, pues eran solo texto, por lo que tenia que cambiarlo para cada actualizacion que hiciera, y la verdad, que puta paja XDDDD, asi que simplemente decidi hacer un sistema que revise cada 1 hora la version del launcher (el nombre del release con los ejecutables)",
