@@ -1,0 +1,9 @@
+{
+  "title": "Actualizacion pagina web",
+  "date": "2026-06-30",
+  "tag": "news",
+  "summary": "Todos los cambios que se le han hecho a la pagina web",
+  "content": "Ya, como notaran hay ciertos cambios que se han realizado en esta semana, aqui va la lista completa de todos los cambios que se le han hecho a la pagina web:\n-Se han reemplazado los placeholder de la pagina con imagenes mas decentes\n-Arregle el tamaño de estas imagenes ya que estaban cortadas\n-Cambie por completo la seccion de roadmap para que pueda dar mas detalles de lo que estoy haciendo, ademas de actualizarse automaticamente cada que completo algo (por cortesia del panel de control)\n-La seccion de descargas ahora es mas grande, con textos que ahora si se pueden leer\n-Ahora sale en que version esta el launcher actualmente, y se sincronizan automaticamente, asi ademas de ahorrar trabajo, todo queda mejor (en descargas salia que estabamos en la 2.4.7 XDDD)\n-Ahora puedes ir directamente a las secciones por urls, ahora si alguien entra a la pagina a ver las noticias por una url, no tendra que ir primero al inicio y despues a la seccion que quiere\n\nPor ahora esos son los cambios, Espero y por la semana me vayan diciendo sus opiniones, gracias por leer hasta esta parte!",
+  "version": "1.0.2",
+  "game": "Web"
+}
