@@ -1,17 +1,6 @@
 {
   "items": [
     {
-      "id": "#009",
-      "title": "Testear nueva funcion del launcher",
-      "desc": "En esta 1.0.2, inclui una funcion que deberia de facilitarme las cosas, autoactualziar el launcher sin necesidad de usar el instalador, Falta por testearlo y arreglarle un par de errores",
-      "status": "done",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "23-29 junio 26",
-      "created_at": "2026-06-30",
-      "updated_at": "2026-06-30"
-    },
-    {
       "id": "#010",
       "title": "Hacer las secciones del launcher \"Compartibles\"",
       "desc": "A que coño me refiero con esto? veras, cada que comparto el launcher a la gente, siempre los llevan al inicio, esta bien y todo, pero cuando quiero mandar especificamente una seccion de la pagina web, me imagino que es tendioso andar abriendo la pagina para luego entrar a esa seccion, por eso, ahora la pagina deberia de tener secciones para que cuando comparta la pagina, puedan ir directo a la seccion que quiero que vean en vez de pasar por el inicio",
