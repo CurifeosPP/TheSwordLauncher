@@ -70,12 +70,12 @@
       "id": "#007",
       "title": "Subir la nueva version del launcher (1.0.2)",
       "desc": "Ahora mismo, ya le he hecho algunos cambios, por ejemplo, tiene las noticias unificadas, la pantalla de carga funcional, El codigo dividido en varias partes, arreglos para la version de mac, acceso directos en los menus de los sistemas operativos,autoactualizar el launcher cada que sale una nueva version, y todo eso se supone y deberia de andar funcionando correctamente, y se subira esta version con la nueva herramienta del panel de control, por lo que estaria probando dos cosas en una sola vez.",
-      "status": "wip",
+      "status": "done",
       "deadline_type": "weekly",
       "deadline_date": "",
       "week_label": "23-29 junio 26",
       "created_at": "2026-06-29",
-      "updated_at": "2026-06-29"
+      "updated_at": "2026-06-30"
     },
     {
       "id": "#008",
