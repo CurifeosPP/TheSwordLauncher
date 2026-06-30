@@ -21,6 +21,17 @@
       "week_label": "30-06 Julio 2026",
       "created_at": "2026-06-30",
       "updated_at": "2026-06-30"
+    },
+    {
+      "id": "#003",
+      "title": "\"Hacer el Kore-killer divertido\"",
+      "desc": "el Kore-killer, es un prototipo, pero no es un prototipo divertido, cuenta una historia, si, pero no hay mecanicas que te incentiven a seguir jugando, desde que lo lanze, siento que podria estar miliunn veces mejor",
+      "status": "planned",
+      "deadline_type": "weekly",
+      "deadline_date": "",
+      "week_label": "30-06 Julio 2026",
+      "created_at": "2026-06-30",
+      "updated_at": "2026-06-30"
     }
   ]
 }
