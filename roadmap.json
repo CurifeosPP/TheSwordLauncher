@@ -1,3 +1,15 @@
 {
-  "items": []
+  "items": [
+    {
+      "id": "#001",
+      "title": "Agregar sistemas faltantes a Kore-killer",
+      "desc": "Saben? Se suponia y en el prototipo de Kore-killer, tenia que meterle mas sistemas, pero por hueva y por mas hueva aun no los agregue, asi que ahora toca trabajar para darle mas cosas a este",
+      "status": "planned",
+      "deadline_type": "weekly",
+      "deadline_date": "",
+      "week_label": "30-06 Julio 2026",
+      "created_at": "2026-06-30",
+      "updated_at": "2026-06-30"
+    }
+  ]
 }
