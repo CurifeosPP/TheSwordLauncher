@@ -5061,14 +5061,46 @@ function closeNewsModal() {
 }
 
 // Cargar noticias la primera vez que se entra a la sección
+// ==================== URL HASH ROUTING (deep links compartibles) ====================
+// Permite compartir enlaces directos a cada seccion:
+//   https://curifeospp.github.io/TheSwordLauncher/#roadmap
+//   https://curifeospp.github.io/TheSwordLauncher/#download
+//   https://curifeospp.github.io/TheSwordLauncher/#support
+//   https://curifeospp.github.io/TheSwordLauncher/#curifeos
+//   https://curifeospp.github.io/TheSwordLauncher/#noticias
+//   https://curifeospp.github.io/TheSwordLauncher/        (sin hash = Inicio)
+const TSL_VALID_SECTIONS = ['home','noticias','curifeos','support','roadmap','download'];
+let tslInternalNav = false;
+
+function tslSectionFromHash() {
+  // Normaliza: quita '#' y '/' iniciales, pasa a minusculas
+  const raw = (location.hash || '').replace(/^#\/?/, '').toLowerCase();
+  if (!raw) return 'home';
+  return TSL_VALID_SECTIONS.indexOf(raw) !== -1 ? raw : 'home';
+}
+
 const _origShowSection = showSection;
 showSection = function(id) {
   _origShowSection(id);
   if (id === 'noticias' && !newsLoaded) loadNews();
+  // Actualizar la URL con el hash de la seccion actual (para que se pueda copiar/compartir)
+  if (typeof id === 'string' && TSL_VALID_SECTIONS.indexOf(id) !== -1) {
+    const newHash = '#' + id;
+    if (location.hash !== newHash) {
+      tslInternalNav = true; // suprime el handler de hashchange (lo disparamos nosotros)
+      location.hash = newHash;
+    }
+  }
 };
 
-// Show home by default
-showSection('home');
+// Reaccionar a los botones atras/adelante del navegador
+window.addEventListener('hashchange', function() {
+  if (tslInternalNav) { tslInternalNav = false; return; }
+  showSection(tslSectionFromHash());
+});
+
+// Abrir la seccion indicada en la URL al cargar la pagina (deep link)
+showSection(tslSectionFromHash());
 </script>
 </body>
 </html>
