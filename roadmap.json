@@ -54,6 +54,17 @@
       "week_label": "30-06 Julio 2026",
       "created_at": "2026-07-01",
       "updated_at": "2026-07-01"
+    },
+    {
+      "id": "#006",
+      "title": "Mejorar el sistema de versiones",
+      "desc": "Al descargar una version en especifica, ademas de ya no darte opciones para los accesos directos, es que el launcher no importa que, siempre selecciona la version mas reciente del juego, y no guarda como cual fue la ultima version jugada,aahora quiero que este muestre la ultima version jugada en vez de la mas reciente (pero si no hay ninguna version jugada, ahi si que muestre la version mas reciente)",
+      "status": "planned",
+      "deadline_type": "weekly",
+      "deadline_date": "",
+      "week_label": "30-06 Julio 2026",
+      "created_at": "2026-07-01",
+      "updated_at": "2026-07-01"
     }
   ]
 }
