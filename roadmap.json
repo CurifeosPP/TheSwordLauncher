@@ -36,7 +36,7 @@
     {
       "id": "#004",
       "title": "Investigar Sobre \"Sword VR\" (COMPLETADO)",
-      "desc": "Miren, no es secreto alguno que tengo unas gafas de vr, por lo que quiero hacer el launcher compatible con las gafas vr, sea con o sin cable, que puedas jugar mis juegos en pantalla plana o con los mandos en juegos compatibles con su version dedicada a VR (POSTDATA: he ha hecho la investigacion, sale mas factible hacer una version PCVR en windows, no vale la pena mucho hacer que funcione tambien en linux, y no empecemos con hacer un version standalone...)",
+      "desc": "Miren, no es secreto alguno que tengo unas gafas de vr, por lo que quiero hacer el launcher compatible con las gafas vr, sea con o sin cable, que puedas jugar mis juegos en pantalla plana o con los mandos en juegos compatibles con su version dedicada a VR (POSTDATA: se ha hecho la investigacion, sale mas factible hacer una version PCVR en windows, no vale la pena mucho hacer que funcione tambien en linux, y no empecemos con hacer un version standalone...)",
       "status": "done",
       "deadline_type": "weekly",
       "deadline_date": "",
