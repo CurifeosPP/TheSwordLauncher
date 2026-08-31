@@ -43,17 +43,6 @@
       "week_label": "01-07 Septiembre 26",
       "created_at": "2026-08-31",
       "updated_at": "2026-08-31"
-    },
-    {
-      "id": "#009",
-      "title": "(KORE-KILLER) añadir sistemas faltantes en el prototipo",
-      "desc": "Aqui va la lista de cosas que me faltaron por agregar en el prototipo: \nSistema de atributos, \nSistema de partidas,añadir la barra de \"investigacion\"\n\"Modo libre\" despues de terminar de lidiar con una entidad\nSistema de dinero y experiencia,Sistema de tienda para comprar mas herramientas",
-      "status": "planned",
-      "deadline_type": "weekly",
-      "deadline_date": "",
-      "week_label": "01-07 Septiembre 26",
-      "created_at": "2026-08-31",
-      "updated_at": "2026-08-31"
     }
   ]
 }
