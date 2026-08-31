@@ -10,6 +10,17 @@
       "week_label": "30-06 Julio 2026",
       "created_at": "2026-07-01",
       "updated_at": "2026-07-01"
+    },
+    {
+      "id": "#006",
+      "title": "Hacer Guiones de videos",
+      "desc": "Saben?, yo antes subia videos (Theproknight6470) y pues, es una pena que haya dejado un canal muerto, quiero volver, y volvere",
+      "status": "planned",
+      "deadline_type": "weekly",
+      "deadline_date": "",
+      "week_label": "01-07 Septiembre 26",
+      "created_at": "2026-08-31",
+      "updated_at": "2026-08-31"
     }
   ]
 }
