@@ -21,6 +21,17 @@
       "week_label": "01-07 Septiembre 26",
       "created_at": "2026-08-31",
       "updated_at": "2026-08-31"
+    },
+    {
+      "id": "#007",
+      "title": "Actualizar \"el plugin\"",
+      "desc": "Yo tengo un plugin de minecraft, en resumen, aun no esta tan pulido o terminado, y planeo publicarlo cuando ya me sienta satisfecto con el, pero por mientras, tendre que actualizarlo",
+      "status": "planned",
+      "deadline_type": "monthly",
+      "deadline_date": "",
+      "week_label": "01-07 Septiembre 26",
+      "created_at": "2026-08-31",
+      "updated_at": "2026-08-31"
     }
   ]
 }
