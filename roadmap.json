@@ -65,6 +65,17 @@
       "week_label": "01-07 Septiembre 26",
       "created_at": "2026-09-01",
       "updated_at": "2026-09-01"
+    },
+    {
+      "id": "#011",
+      "title": "Arreglar Kore-killer, que no se descarga correctamente (LINUX)",
+      "desc": "dejen que les cuente una historia hermosa, habia una vez, un huevon que invento un launcher para no pagar por publicar sus juegos, total que este individuo se toma unas vacaciones despues de un crunch fenomenal, y cuando vuelve a instalar su launcher, decide instalar el ultimo prototipo en el que trabajo, en el sistema operativo que usa, total que al iniciarlo, el juego no inicia, no dice nada, esta en gris, queriendo dar color, por lo que, nuestro protagonista se da cuenta de algo, y dijo: \"Car",
+      "status": "planned",
+      "deadline_type": "weekly",
+      "deadline_date": "",
+      "week_label": "01-07 Septiembre 26",
+      "created_at": "2026-09-01",
+      "updated_at": "2026-09-01"
     }
   ]
 }
